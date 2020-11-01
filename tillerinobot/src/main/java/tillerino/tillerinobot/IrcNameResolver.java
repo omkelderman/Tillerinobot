@@ -142,7 +142,7 @@ public class IrcNameResolver {
 
 	@SuppressFBWarnings(value = "TQ", justification = "Producer")
 	public static @IRCName String getIrcUserName(OsuApiUser user) {
-		return user.getUserName().replace(' ', '_');
+		return user.getUserName().replace(' ', '_').toLowerCase();
 	}
 
 	/**

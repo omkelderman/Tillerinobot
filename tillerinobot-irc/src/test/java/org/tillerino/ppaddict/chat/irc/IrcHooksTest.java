@@ -130,28 +130,28 @@ public class IrcHooksTest {
 	public void testPrivateMessage() throws Exception {
 		irc.onEvent(mockPrivateMessage("pm"));
 		verify(botInfo).setLastReceivedMessage(123);
-		verify(eventHandler).onEvent(new PrivateMessage(12_300, "userNick", 123, "pm"));
+		verify(eventHandler).onEvent(new PrivateMessage(12_300, "usernick", 123, "pm"));
 
 		// check if the event ID increments
 		irc.onEvent(mockPrivateMessage("pm2"));
-		verify(eventHandler).onEvent(new PrivateMessage(12_301, "userNick", 123, "pm2"));
+		verify(eventHandler).onEvent(new PrivateMessage(12_301, "usernick", 123, "pm2"));
 	}
 
 	@Test
 	public void testPrivateAction() throws Exception {
 		irc.onEvent(mockPrivateAction("pa"));
 		verify(botInfo).setLastReceivedMessage(123);
-		verify(eventHandler).onEvent(new PrivateAction(12_300, "userNick", 123, "pa"));
+		verify(eventHandler).onEvent(new PrivateAction(12_300, "usernick", 123, "pa"));
 
 		// check if the event ID increments
 		irc.onEvent(mockPrivateAction("pa2"));
-		verify(eventHandler).onEvent(new PrivateAction(12_301, "userNick", 123, "pa2"));
+		verify(eventHandler).onEvent(new PrivateAction(12_301, "usernick", 123, "pa2"));
 	}
 
 	@Test
 	public void testJoin() throws Exception {
 		irc.onEvent(mockEvent(JoinEvent.class));
-		verify(eventHandler).onEvent(new Joined(12_300, "userNick", 123));
+		verify(eventHandler).onEvent(new Joined(12_300, "usernick", 123));
 	}
 
 	@Test

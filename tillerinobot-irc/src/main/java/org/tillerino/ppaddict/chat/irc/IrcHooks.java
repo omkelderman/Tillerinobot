@@ -220,8 +220,8 @@ public class IrcHooks extends CoreHooks {
 		System.out.println("processed user list event " + userListEvents.size() + " remaining");
 	}
 
-	@SuppressFBWarnings("TQ")
+	@SuppressFBWarnings(value = "TQ", justification = "Producer")
 	@IRCName private static String getNick(GenericUserEvent event) {
-		return event.getUser().getNick();
+		return event.getUser().getNick().toLowerCase();
 	}
 }

@@ -177,11 +177,11 @@ public class IRCBotTest extends AbstractDatabaseTest {
 		BotBackend backend = mock(BotBackend.class);
 		doReturn(IRCBot.CURRENT_VERSION).when(backend).getLastVisitedVersion(anyString());
 		
-		this.backend.hintUser("TheDonator", true, 1, 1);
-		int userid = resolver.getIDByUserName("TheDonator");
+		this.backend.hintUser("the_donator", true, 1, 1);
+		int userid = resolver.getIDByUserName("the_donator");
 
 		OsuApiUser osuApiUser = mock(OsuApiUser.class);
-		when(osuApiUser.getUserName()).thenReturn("TheDonator");
+		when(osuApiUser.getUserName()).thenReturn("the_donator");
 		when(osuApiUser.getUserId()).thenReturn(userid);
 
 		when(backend.getUser(eq(userid), anyLong())).thenReturn(osuApiUser);
@@ -190,16 +190,16 @@ public class IRCBotTest extends AbstractDatabaseTest {
 		IRCBot bot = getTestBot(backend);
 		
 		when(backend.getLastActivity(any(OsuApiUser.class))).thenReturn(System.currentTimeMillis() - 1000);
-		verifyResponse(bot, join("TheDonator"), new Message("beep boop"));
+		verifyResponse(bot, join("the_donator"), new Message("beep boop"));
 
 		when(backend.getLastActivity(any(OsuApiUser.class))).thenReturn(System.currentTimeMillis() - 10 * 60 * 1000);
-		verifyResponse(bot, join("TheDonator"), new Message("Welcome back, TheDonator."));
+		verifyResponse(bot, join("the_donator"), new Message("Welcome back, the_donator."));
 
 		when(backend.getLastActivity(any(OsuApiUser.class))).thenReturn(System.currentTimeMillis() - 2l * 24 * 60 * 60 * 1000);
-		verifyResponse(bot, join("TheDonator"), messageContaining("TheDonator, "));
+		verifyResponse(bot, join("the_donator"), messageContaining("the_donator, "));
 
 		when(backend.getLastActivity(any(OsuApiUser.class))).thenReturn(System.currentTimeMillis() - 8l * 24 * 60 * 60 * 1000);
-		verifyResponse(bot, join("TheDonator"), messageContaining("TheDonator")
+		verifyResponse(bot, join("the_donator"), messageContaining("the_donator")
 				.then(messageContaining("so long").then(messageContaining("back"))));
 	}
 
@@ -355,10 +355,10 @@ public class IRCBotTest extends AbstractDatabaseTest {
 	public void testMaintenanceOnSight() throws Exception {
 		BotBackend backend = mock(BotBackend.class);
 		resolver = mock(IrcNameResolver.class);
-		when(resolver.resolveIRCName("aRareUserAppears")).thenReturn(18);
+		when(resolver.resolveIRCName("arareuserappears")).thenReturn(18);
 		IRCBot bot = getTestBot(backend);
 
-		Sighted event = new Sighted(12, "aRareUserAppears", 15);
+		Sighted event = new Sighted(12, "arareuserappears", 15);
 		bot.onEvent(event);
 		verify(queue).onResponse(GameChatResponse.none(), event);
 		verify(backend, timeout(1000)).registerActivity(18, 15);
