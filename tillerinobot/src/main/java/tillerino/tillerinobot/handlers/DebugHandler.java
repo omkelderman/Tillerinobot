@@ -55,7 +55,13 @@ public class DebugHandler implements CommandHandler {
 							(command, apiUser, userData) -> new Success(command
 									+ " is "
 									+ backend.getUser(
-											Integer.parseInt(command), 1l))));
+											Integer.parseInt(command), 1l))))
+					.or(CommandHandler.alwaysHandling(
+							"flushCache",
+							(command, apiUser, userData) -> {
+								resolver.flushResolvedUsernamesCache();
+								return new Success("flushed resolved username internal cache");
+							}));
 			GameChatResponse response = commands.handle(
 					debugCommand.substring(DEBUG.length()), debugApiUser,
 					debugUserData);

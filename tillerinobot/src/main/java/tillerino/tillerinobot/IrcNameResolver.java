@@ -181,4 +181,8 @@ public class IrcNameResolver {
 		}
 		return apiUser;
 	}
+
+	public void flushResolvedUsernamesCache() {
+		resolvedIRCNames.invalidateAll();
+	}
 }
